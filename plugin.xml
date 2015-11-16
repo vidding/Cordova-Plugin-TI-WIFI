@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="cordova-plugin-ti-wifi"
+        version="0.0.1">
+  <name>TIWifi</name>
+  <description>
+      This plugin provides searching ssid of connected wifi and setting ssid to the ti wifi modules on the android's phones.
+  </description>
+  <author>vidding</author>
+  <license>BSD 2.0</license>
+  <keywords>wifi, ssid, TI</keywords>
+  <repo>https://github.com/vidding/Cordova-Plugin-TI-WIFI.git</repo>
+  <issue>https://github.com/vidding/Cordova-Plugin-TI-WIFI/issues</issue>
+  <engines>
+    <engine name="cordova" version=">=3.0.0"/>
+  </engines>
+  <js-module src="www/TIWifi.js" name="TIWifi">
+    <clobbers target="window.plugins.TIWifi" />
+  </js-module>
+  <!-- android -->
+  <platform name="android">
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="TIWifi">
+        <param name="android-package" value="sg.app.plugins.TIWifi" />
+      </feature>
+    </config-file>
+    <source-file src="src/android/sm/app/plugins/TIWifi.java" target-dir="src/sm/app/plugins"/>
+  </platform>
+</plugin>

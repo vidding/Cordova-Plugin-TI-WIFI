@@ -1,0 +1,33 @@
+{
+  "name": "cordova-plugin-ti-wifi",
+  "version": "0.0.1",
+  "description": "This plugin provides searching ssid of connected wifi and setting ssid to the ti wifi modules on the android's phones.",
+  "cordova": {
+    "id": "cordova-plugin-ti-wifi",
+    "platforms": [
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vidding/Cordova-Plugin-TI-WIFI.git"
+  },
+  "keywords": [
+    "wifi",
+    "ssid",
+    "TI",
+    "cordova-android"
+  ],
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0.0"
+    }
+  ],
+  "author": "Yongshu Wei <skyyu164@gmail.com> (https://github.com/vidding)",
+  "license": "BSD 2.0",
+  "bugs": {
+    "url": "https://github.com/vidding/Cordova-Plugin-TI-WIFI/issues"
+  },
+  "homepage": "https://github.com/vidding/Cordova-Plugin-TI-WIFI#readme"
+}
