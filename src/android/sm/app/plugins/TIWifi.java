@@ -25,7 +25,7 @@ public class TIWifi extends CordovaPlugin {
             return true;
         } else {
             callbackContext.error("TIWifi." + action + " is not a supported function.");
-            return false
+            return false;
         }
     }
 };
