@@ -12,7 +12,7 @@ TIWifi.prototype.setssid = function(ssid, password, successCallback, errorCallba
         ssid: ssid,
         password: password
     };
-    cordova.exec(successCallback, errorCallback, "TIWifi", "getssid", [options]);
+    cordova.exec(successCallback, errorCallback, "TIWifi", "setssid", [options]);
 };
 
 TIWifi.install = function () {
