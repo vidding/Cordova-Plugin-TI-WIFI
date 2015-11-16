@@ -18,7 +18,10 @@ public class TIWifi extends CordovaPlugin {
             callbackContext.success("TIWifi: get ssid");
             return true;
         } else if (ACTION_SET_SSID.equals(action)) {
-            callbackContext.success("TIWifi: set ssid");
+            final JSONObject options = args.getJSONObject(0);
+            final String ssid = options.getString("ssid");
+            final String password = options.getString("password");
+            callbackContext.success("TIWifi: set ssid:" + ssid + " password:" + password);
             return true;
         } else {
             callbaclContext.error("TIWifi." + action + " is not a supported function.");
