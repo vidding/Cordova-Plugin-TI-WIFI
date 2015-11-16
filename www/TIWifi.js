@@ -1,7 +1,9 @@
 /**
  * Created by suye on 2015/11/16.
  */
-TIWifi = {};
+function TIWifi(){
+
+}
 
 TIWifi.prototype.getssid = function(successCallback, errorCallback){
     cordova.exec(successCallback, errorCallback, "TIWifi", "getssid", []);

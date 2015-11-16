@@ -22,7 +22,7 @@
   <platform name="android">
     <config-file target="res/xml/config.xml" parent="/*">
       <feature name="TIWifi">
-        <param name="android-package" value="sg.app.plugins.TIWifi" />
+        <param name="android-package" value="sm.app.plugins.TIWifi" />
       </feature>
     </config-file>
     <source-file src="src/android/sm/app/plugins/TIWifi.java" target-dir="src/sm/app/plugins"/>
