@@ -7,7 +7,7 @@ public class util {
 	public static final String ZERO_PADDING_16="0000000000000000";
 	
 	public static String getGateway (WifiManager wm) {
-		return NetworkUtil.intToIp(wm.getDhcpInfo().gateway);
+		return util.intToIp(wm.getDhcpInfo().gateway);
 	}
 	
 	public static String intToIp(int i) {
