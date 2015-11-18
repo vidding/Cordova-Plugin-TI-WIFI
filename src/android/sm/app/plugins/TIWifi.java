@@ -28,13 +28,6 @@ public class TIWifi extends CordovaPlugin {
     private WifiManager wifiManager;
     private wificonfig wifiConfig;
 
-    public TIWifi(){
-        Context context = cordova.getActivity().getApplicationContext();
-        wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-
-        wifiConfig = new wificonfig(wifiManager);
-    }
-
     @Override
     public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
         PluginResult result = null;
@@ -49,7 +42,7 @@ public class TIWifi extends CordovaPlugin {
         } else if (ACTION_STOP_FIND_DEVICE.equals(action)) {
             result = executeStopFindDevice(args, callbackContext);
         } else {
-            Log.d(LOGTAG, String.format("Invalid action passed: %s", action));
+            Log.d(LOG_TAG, String.format("Invalid action passed: %s", action));
             result = new PluginResult(Status.INVALID_ACTION);
         }
 
@@ -61,6 +54,8 @@ public class TIWifi extends CordovaPlugin {
     private PluginResult executeGetWifiInfo(JSONArray args, CallbackContext callbackContext){
         Log.w(LOG_TAG, "executeGetWifiInfo");
 
+        Context context = cordova.getActivity().getApplicationContext();
+        wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();
         JSONObject obj = new JSONObject();
         try {
@@ -100,6 +95,9 @@ public class TIWifi extends CordovaPlugin {
     private PluginResult executeStartConfig(JSONArray args, CallbackContext callbackContext){
         Log.w(LOG_TAG, "executeStartConfig");
 
+        Context context = cordova.getActivity().getApplicationContext();
+        wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        wifiConfig = new wificonfig(wifiManager);
         wifiConfig.startSmartConfig("TP-LINK_F87E", "zhanggaoyuan20090406", "test", "");
 
         return null;
@@ -108,7 +106,8 @@ public class TIWifi extends CordovaPlugin {
     private PluginResult executeStopConfig(JSONArray args, CallbackContext callbackContext){
         Log.w(LOG_TAG, "executeStopConfig");
 
-        wifiConfig.stopSmartConfig();
+        if (wifiConfig)
+            wifiConfig.stopSmartConfig();
         return null;
     }
 
