@@ -17,18 +17,37 @@ import android.net.wifi.WifiManager.WifiLock;
 import android.util.Log;
 
 public class TIWifi extends CordovaPlugin {
-    private static final String LOGTAG = "WifiAdmin";
+    private static final String LOG_TAG = "WifiAdmin";
     /* cordova actions */
     private static final String ACTION_GET_SSID = "getssid";
-    private static final String ACTION_SET_SSID = "setssid";
+    private static final String ACTION_START_CONFIG = "startconfig";
+    private static final String ACTION_STOP_CONFIG = "stopconfig";
+    private static final String ACTION_START_FIND_DEVICE = "startfinddevice";
+    private static final String ACTION_STOP_FIND_DEVICE = "stopfinddevice";
+
+    private WifiManager wifiManager;
+    private wificonfig wifiConfig;
+
+    public TIWifi(){
+        Context context = cordova.getActivity().getApplicationContext();
+        wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+
+        wifiConfig = new wificonfig(wifiManager);
+    }
 
     @Override
     public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
         PluginResult result = null;
         if (ACTION_GET_SSID.equals(action)) {
             result = executeGetWifiInfo(args, callbackContext);
-        } else if (ACTION_SET_SSID.equals(action)) {
-            result = executeSetSSID(args, callbackContext);
+        } else if (ACTION_START_CONFIG.equals(action)) {
+            result = executeStartConfig(args, callbackContext);
+        } else if (ACTION_STOP_CONFIG.equals(action)) {
+            result = executeStopConfig(args, callbackContext);
+        } else if (ACTION_START_FIND_DEVICE.equals(action)) {
+            result = executeStartFindDevice(args, callbackContext);
+        } else if (ACTION_STOP_FIND_DEVICE.equals(action)) {
+            result = executeStopFindDevice(args, callbackContext);
         } else {
             Log.d(LOGTAG, String.format("Invalid action passed: %s", action));
             result = new PluginResult(Status.INVALID_ACTION);
@@ -40,12 +59,9 @@ public class TIWifi extends CordovaPlugin {
     }
 
     private PluginResult executeGetWifiInfo(JSONArray args, CallbackContext callbackContext){
-        Log.w(LOGTAG, "executeGetWifiInfo");
+        Log.w(LOG_TAG, "executeGetWifiInfo");
 
-        Context context = cordova.getActivity().getApplicationContext();
-        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-
         JSONObject obj = new JSONObject();
         try {
             JSONObject activity = new JSONObject();
@@ -81,12 +97,29 @@ public class TIWifi extends CordovaPlugin {
         return null;
     }
 
-    private PluginResult executeSetSSID(JSONArray args, CallbackContext callbackContext){
-        Log.w(LOGTAG, "executeSetSSID");
-        final JSONObject options = args.getJSONObject(0);
-        final String ssid = options.getString("ssid");
-        final String password = options.getString("password");
-        callbackContext.success("TIWifi: set ssid:" + ssid + " password:" + password);
+    private PluginResult executeStartConfig(JSONArray args, CallbackContext callbackContext){
+        Log.w(LOG_TAG, "executeStartConfig");
+
+        wifiConfig.startSmartConfig("TP-LINK_F87E", "zhanggaoyuan20090406", "test", "");
+
         return null;
     }
+
+    private PluginResult executeStopConfig(JSONArray args, CallbackContext callbackContext){
+        Log.w(LOG_TAG, "executeStopConfig");
+
+        wifiConfig.stopSmartConfig();
+        return null;
+    }
+
+    private PluginResult executeStartFindDevice(JSONArray args, CallbackContext callbackContext){
+        Log.w(LOG_TAG, "executeStartFindDevice");
+        return null;
+    }
+
+    private PluginResult executeStopFindDevice(JSONArray args, CallbackContext callbackContext){
+        Log.w(LOG_TAG, "executeStopFindDevice");
+        return null;
+    }
+
 };
