@@ -26,6 +26,10 @@
       </feature>
     </config-file>
     <source-file src="src/android/sm/app/plugins/TIWifi.java" target-dir="src/sm/app/plugins"/>
+      <source-file src="src/android/sm/app/plugins/util.java" target-dir="src/sm/app/plugins"/>
+      <source-file src="src/android/sm/app/plugins/wificonfig.java" target-dir="src/sm/app/plugins"/>
+      <source-file src="src/android/sm/app/plugins/finddevice.java" target-dir="src/sm/app/plugins"/>
+      <source-file src="src/android/sm/app/plugins/FindDeviceCallbackInterface.java" target-dir="src/sm/app/plugins"/>
     <lib-file src="libs/jmdns-3.4.2-r353-1.jar" target-dir="libs"/>
     <lib-file src="libs/smartconfiglib.jar" target-dir="libs"/>
   </platform>
