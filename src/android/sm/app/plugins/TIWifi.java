@@ -114,8 +114,8 @@ public class TIWifi extends CordovaPlugin {
 
         init();
 
-        JSONObjecct options = options;
-        String ssid, password, devname, encodekey;
+        JSONObject options;
+        String ssid = null, password = null, devname = null, encodekey = null;
         try {
             options = args.getJSONObject(0);
             ssid = options.getString("ssid");
