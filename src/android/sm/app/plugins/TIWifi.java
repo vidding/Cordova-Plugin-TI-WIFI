@@ -106,7 +106,7 @@ public class TIWifi extends CordovaPlugin {
     private PluginResult executeStopConfig(JSONArray args, CallbackContext callbackContext){
         Log.w(LOG_TAG, "executeStopConfig");
 
-        if (wifiConfig)
+        if (wifiConfig != null)
             wifiConfig.stopSmartConfig();
         return null;
     }
