@@ -30,7 +30,7 @@ public class TIWifi extends CordovaPlugin {
     private finddevice findDevice = null;
     private FindDeviceCallbackInterface mDnsCallback = null;
 
-    private isfinding = false;
+    private boolean isfinding = false;
 
     private void init(){
         if (wifiManager == null){
