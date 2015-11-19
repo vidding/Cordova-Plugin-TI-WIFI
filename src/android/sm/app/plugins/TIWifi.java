@@ -134,15 +134,7 @@ public class TIWifi extends CordovaPlugin {
             return null;
 
         init();
-        mDnsCallback = new FindDeviceCallbackInterface() {
-            @Override
-            public void onDeviceResolved(JSONObject deviceJSON) {
-                //Message msg = handler.obtainMessage(Tool.DEVICE_HOST, deviceJSON);
-                //handler.sendMessage(msg);
-                callbackContext.success(deviceJSON);
-            }
-        };
-        findDevice.setCallback(mDnsCallback);
+        findDevice.setCallbackContext(callbackContext);
         findDevice.startDiscovery();
         isfinding = true;
 
