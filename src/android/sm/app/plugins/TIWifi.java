@@ -114,11 +114,18 @@ public class TIWifi extends CordovaPlugin {
 
         init();
 
-        JSONObject options = args.getJSONObject(0);
-        String ssid = options.getString("ssid");
-        String password = options.getString("password");
-        String devname = options.getString("devname");
-        String encodekey = options.getString("encodekey");
+        JSONObjecct options = options;
+        String ssid, password, devname, encodekey;
+        try {
+            options = args.getJSONObject(0);
+            ssid = options.getString("ssid");
+            password = options.getString("password");
+            devname = options.getString("devname");
+            encodekey = options.getString("encodekey");
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         wifiConfig.startSmartConfig(ssid, password, devname, encodekey);
 

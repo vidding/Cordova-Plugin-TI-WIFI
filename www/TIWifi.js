@@ -17,9 +17,9 @@ TIWifi.prototype.getssid = function(successCallback, errorCallback){
 TIWifi.prototype.startconfig = function(ssid, password, devname, encodekey, successCallback, errorCallback){
     var options = {
         ssid: ssid,
-        password: password,
-        devname: devname,
-        encodekey: encodekey
+        password: password||"",
+        devname: devname||"",
+        encodekey: encodekey||""
     };
     cordova.exec(successCallback, errorCallback, "TIWifi", "startconfig", [options]);
 };
