@@ -17,6 +17,8 @@ import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.MulticastLock;
 import android.util.Log;
 
+import org.apache.cordova.CallbackContext;
+
 public class finddevice implements ServiceListener, ServiceTypeListener {
 
 	private WifiManager wm;
@@ -24,6 +26,7 @@ public class finddevice implements ServiceListener, ServiceTypeListener {
 	private boolean isDiscovering;
 	private JmDNS jmdns;
 	private FindDeviceCallbackInterface callback;
+	private CallbackContext callbackContext;
 	
 	public static final String LOGTAG = "TIWifi";
 	public static final String SERVICE_TYPE = "_http._tcp.";
@@ -38,8 +41,8 @@ public class finddevice implements ServiceListener, ServiceTypeListener {
     	multicastLock.setReferenceCounted(true);
 	}
 
-	public void setCallback(FindDeviceCallbackInterface callback) {
-	    this.callback = callback;
+	public void setCallbackContext(CallbackContext callbackcontext) {
+	    this.callbackContext = callbackcontext;
 	}
 
 	public void startDiscovery() {
@@ -135,8 +138,12 @@ public class finddevice implements ServiceListener, ServiceTypeListener {
 				
 				Log.d(LOGTAG, "device name: " + deviceJSON.getString("name"));
 				Log.d(LOGTAG, "device host: " + deviceJSON.getString("host"));
-				
-				callback.onDeviceResolved(deviceJSON);
+
+				if (callback != null)
+				    callback.onDeviceResolved(deviceJSON);
+                if (callbackContext != null){
+                    callbackContext.success(deviceJSON);
+                }
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
