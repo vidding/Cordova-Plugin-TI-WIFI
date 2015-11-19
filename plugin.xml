@@ -2,7 +2,7 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android"
     id="cordova-plugin-ti-wifi"
-    version="0.0.1">
+    version="0.0.2">
   <name>TIWifi</name>
   <description>
       This plugin provides searching ssid of connected wifi and setting ssid to the ti wifi modules on the android's phones.
