@@ -114,7 +114,13 @@ public class TIWifi extends CordovaPlugin {
 
         init();
 
-        wifiConfig.startSmartConfig("TP-LINK_F87E", "zhanggaoyuan20090406", "test", "");
+        JSONObject options = args.getJSONObject(0);
+        String ssid = options.getString("ssid");
+        String password = options.getString("password");
+        String devname = options.getString("devname");
+        String encodekey = options.getString("encodekey");
+
+        wifiConfig.startSmartConfig(ssid, password, devname, encodekey);
 
         return null;
     }
