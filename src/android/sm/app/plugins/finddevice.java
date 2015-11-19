@@ -38,6 +38,10 @@ public class finddevice implements ServiceListener, ServiceTypeListener {
     	multicastLock.setReferenceCounted(true);
 	}
 
+	public void setCallback(FindDeviceCallbackInterface callback) {
+	    this.callback = callback;
+	}
+
 	public void startDiscovery() {
     	if (isDiscovering )
     		return;
@@ -132,7 +136,7 @@ public class finddevice implements ServiceListener, ServiceTypeListener {
 				Log.d(LOGTAG, "device name: " + deviceJSON.getString("name"));
 				Log.d(LOGTAG, "device host: " + deviceJSON.getString("host"));
 				
-				callback.onDeviceResolved(deviceJSON);				
+				callback.onDeviceResolved(deviceJSON);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
