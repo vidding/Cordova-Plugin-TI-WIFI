@@ -25,8 +25,25 @@ public class TIWifi extends CordovaPlugin {
     private static final String ACTION_START_FIND_DEVICE = "startfinddevice";
     private static final String ACTION_STOP_FIND_DEVICE = "stopfinddevice";
 
-    private WifiManager wifiManager;
-    private wificonfig wifiConfig;
+    private WifiManager wifiManager = null;
+    private wificonfig wifiConfig = null;
+    private finddevice findDevice = null;
+    private FindDeviceCallbackInterface mDnsCallback = null;
+
+    private isfinding = false;
+
+    private void init(){
+        if (wifiManager == null){
+            Context context = cordova.getActivity().getApplicationContext();
+            wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        }
+        if (wifiConfig == null) {
+            wifiConfig = new wificonfig(wifiManager);
+        }
+        if (findDevice == null) {
+            findDevice = new finddevice(wifiManager, null);
+        }
+    }
 
     @Override
     public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
@@ -54,8 +71,8 @@ public class TIWifi extends CordovaPlugin {
     private PluginResult executeGetWifiInfo(JSONArray args, CallbackContext callbackContext){
         Log.w(LOG_TAG, "executeGetWifiInfo");
 
-        Context context = cordova.getActivity().getApplicationContext();
-        wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        init();
+
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();
         JSONObject obj = new JSONObject();
         try {
@@ -95,9 +112,8 @@ public class TIWifi extends CordovaPlugin {
     private PluginResult executeStartConfig(JSONArray args, CallbackContext callbackContext){
         Log.w(LOG_TAG, "executeStartConfig");
 
-        Context context = cordova.getActivity().getApplicationContext();
-        wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-        wifiConfig = new wificonfig(wifiManager);
+        init();
+
         wifiConfig.startSmartConfig("TP-LINK_F87E", "zhanggaoyuan20090406", "test", "");
 
         return null;
@@ -113,11 +129,37 @@ public class TIWifi extends CordovaPlugin {
 
     private PluginResult executeStartFindDevice(JSONArray args, CallbackContext callbackContext){
         Log.w(LOG_TAG, "executeStartFindDevice");
+
+        if (isfinding)
+            return null;
+
+        init();
+        mDnsCallback = new FindDeviceCallbackInterface() {
+            @Override
+            public void onDeviceResolved(JSONObject deviceJSON) {
+                //Message msg = handler.obtainMessage(Tool.DEVICE_HOST, deviceJSON);
+                //handler.sendMessage(msg);
+                callbackContext.success(deviceJSON);
+            }
+        };
+        findDevice.setCallback(mDnsCallback);
+        findDevice.startDiscovery();
+        isfinding = true;
+
         return null;
     }
 
     private PluginResult executeStopFindDevice(JSONArray args, CallbackContext callbackContext){
         Log.w(LOG_TAG, "executeStopFindDevice");
+
+        if (!isfinding)
+            return null;
+
+        if (findDevice != null){
+            findDevice.stopDiscovery();
+            isfinding = false;
+        }
+
         return null;
     }
 
