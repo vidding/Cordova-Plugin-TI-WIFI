@@ -68,7 +68,7 @@ public class TIWifi extends CordovaPlugin {
         return true;
     }
 
-    private PluginResult executeGetWifiInfo(JSONArray args, CallbackContext callbackContext){
+    private PluginResult executeGetWifiInfo(JSONArray args, final CallbackContext callbackContext){
         Log.w(LOG_TAG, "executeGetWifiInfo");
 
         init();
@@ -109,7 +109,7 @@ public class TIWifi extends CordovaPlugin {
         return null;
     }
 
-    private PluginResult executeStartConfig(JSONArray args, CallbackContext callbackContext){
+    private PluginResult executeStartConfig(JSONArray args, final CallbackContext callbackContext){
         Log.w(LOG_TAG, "executeStartConfig");
 
         init();
@@ -132,7 +132,7 @@ public class TIWifi extends CordovaPlugin {
         return null;
     }
 
-    private PluginResult executeStopConfig(JSONArray args, CallbackContext callbackContext){
+    private PluginResult executeStopConfig(JSONArray args, final CallbackContext callbackContext){
         Log.w(LOG_TAG, "executeStopConfig");
 
         if (wifiConfig != null)
@@ -141,7 +141,7 @@ public class TIWifi extends CordovaPlugin {
         return null;
     }
 
-    private PluginResult executeStartFindDevice(JSONArray args, CallbackContext callbackContext){
+    private PluginResult executeStartFindDevice(JSONArray args, final CallbackContext callbackContext){
         Log.w(LOG_TAG, "executeStartFindDevice");
 
         if (isfinding)
@@ -159,7 +159,7 @@ public class TIWifi extends CordovaPlugin {
         return null;
     }
 
-    private PluginResult executeStopFindDevice(JSONArray args, CallbackContext callbackContext){
+    private PluginResult executeStopFindDevice(JSONArray args, final CallbackContext callbackContext){
         Log.w(LOG_TAG, "executeStopFindDevice");
 
         if (!isfinding)
