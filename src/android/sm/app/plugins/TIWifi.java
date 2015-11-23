@@ -128,7 +128,7 @@ public class TIWifi extends CordovaPlugin {
         }
 
         wifiConfig.startSmartConfig(ssid, password, devname, encodekey);
-
+        callbackContext.success();
         return null;
     }
 
@@ -137,6 +137,7 @@ public class TIWifi extends CordovaPlugin {
 
         if (wifiConfig != null)
             wifiConfig.stopSmartConfig();
+        callbackContext.success();
         return null;
     }
 
@@ -146,10 +147,14 @@ public class TIWifi extends CordovaPlugin {
         if (isfinding)
             return null;
 
-        init();
-        findDevice.setCallbackContext(callbackContext);
-        findDevice.startDiscovery();
-        isfinding = true;
+        cordova.getThreadPool().execute(new Runnable() {
+            public void run() {
+                init();
+                findDevice.setCallbackContext(callbackContext);
+                findDevice.startDiscovery();
+                isfinding = true;
+            }
+        });
 
         return null;
     }
@@ -160,10 +165,15 @@ public class TIWifi extends CordovaPlugin {
         if (!isfinding)
             return null;
 
-        if (findDevice != null){
-            findDevice.stopDiscovery();
-            isfinding = false;
-        }
+        cordova.getThreadPool().execute(new Runnable() {
+            public void run() {
+                if (findDevice != null){
+                    findDevice.stopDiscovery();
+                    isfinding = false;
+                }
+                callbackContext.success();
+            }
+        });
 
         return null;
     }
